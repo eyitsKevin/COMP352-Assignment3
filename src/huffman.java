@@ -36,7 +36,7 @@ public class huffman  {
 	
 		System.out.print(lineOfString + " ");
 	
-		System.out.println("\n\n==========\tEnd of \"Jabberwock.txt\"\t==========");
+		System.out.println("\n\n==========\tEnd of \"Jabberwock.txt\"\t==========\n");
 		
 
 		
@@ -88,6 +88,9 @@ public class huffman  {
 		}
 	}
 	
+	/*
+	 * This method sorts an array in descending order. It is important to note that the char character must also correspond and be sorted as well
+	 */
 	static void arraySort(int[] array){
 		
 	}
