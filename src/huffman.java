@@ -5,9 +5,56 @@ import java.util.Scanner;
 
 public class huffman  {
 	
+	Node root;
+	
+	/*
+	 * This method adds a new node whenever called. If root is not already added it will be created else it adds from left to right
+	 */
+	public void addNode(char character, int numberOfOccurence){
+		Node createNode = new Node(character,numberOfOccurence);
+		
+		if(root == null){ //If a root is not created yet
+			root = createNode;
+		} else {
+			//Traversing through a tree
+			Node checkNode = root;
+			Node parent;
+			
+			while(true){
+				parent = checkNode;
+				
+				if(numberOfOccurence < checkNode.numberOfOccurence){
+					checkNode = checkNode.leftChild;
+					
+					if(checkNode == null){
+						parent.leftChild = createNode;
+						return; //to get out of the while loop when the node is created as a left child 
+					}
+				} else { //if numberOfOccurence > checkNode.numberOfOccurence
+					
+					checkNode = checkNode.rightChild;
+					
+					if(checkNode == null){
+						parent.rightChild = createNode;
+						return;
+					}
+				}
+			} //end of while loop	
+		}
+	} //end of add Node
+	
 	//Creating the Node Class, this is the first step of making a 
 	class Node{
 		
+		char character;
+		Node leftChild;
+		Node rightChild;
+		int numberOfOccurence;
+		
+		Node(char character, int numberOfOccurence){
+			this.character = '\u0000'; //the null character 
+			this.numberOfOccurence = 0;
+		}
 	}
 	
 	
@@ -76,6 +123,8 @@ public class huffman  {
 			if(i % 5 == 0)
 				System.out.println();
 		}
+		
+		System.out.println("Sorting the array in descending order");
 	
 	}
 	
