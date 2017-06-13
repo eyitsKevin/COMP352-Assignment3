@@ -57,6 +57,10 @@ public class huffman  {
 		}
 	}
 	
+	public static void buildTree(){
+		
+	}
+	
 	
 	/*
 	 *  This method tries to open and read the file
@@ -124,8 +128,13 @@ public class huffman  {
 				System.out.println();
 		}
 		
-		System.out.println("Sorting the array in descending order");
-	
+		System.out.println("\n\nSorting the array in descending order...\n");
+		TwoinputsInsertionSort(charOccurence, uniqueCharArray);
+		for(int i = 1 ; i <= charOccurence.length ;i++){
+			System.out.print("[" + uniqueCharArray[i-1] + "] occurs " + charOccurence[i-1] + " time(s) \t");
+			if(i % 5 == 0)
+				System.out.println();
+		}
 	}
 	
 	
@@ -140,7 +149,21 @@ public class huffman  {
 	/*
 	 * This method sorts an array in descending order. It is important to note that the char character must also correspond and be sorted as well
 	 */
-	static void arraySort(int[] array){
+	static void TwoinputsInsertionSort(int[] array, char[] array2){
+		int temp;
+		char temp2;
+		for (int i = 0 ; i < array.length-1 ; i++){ //first ends before 1
+			for(int j = i+1 ; j > 0 ; j--){ //second 
+				if(array[j] > array[j-1]){
+					temp = array[j];
+					temp2 = array2[j];
+					array[j] = array[j-1];
+					array2[j] = array2[j-1];
+					array[j-1] = temp; //contains the higher value
+					array2[j-1] = temp2;
+				}
+			}
+	}
 		
 	}
 	
