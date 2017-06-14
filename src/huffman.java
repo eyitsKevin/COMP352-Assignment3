@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+
 
 
 public class huffman  {
@@ -9,6 +6,7 @@ public class huffman  {
 	Node root;
 	
 
+<<<<<<< HEAD
 	//The leaf class, a node is a leaf when the
 	 class Leaf extends Node{
 		
@@ -20,11 +18,13 @@ public class huffman  {
 	
 	
 	
+=======
+>>>>>>> origin/Kevin
 	/*
 	 * This method adds a new node whenever called. If root is not already added it will be created else it adds from left to right
 	 */
-	public void addNode(char character, int numberOfOccurence){
-		Node createNode = new Node(character,numberOfOccurence);
+	public void addNode(char element, int numberOfOccurence){
+		Node createNode = new Node(element,numberOfOccurence);
 		
 		if(root == null){ //If a root is not created yet
 			root = createNode;
@@ -59,15 +59,19 @@ public class huffman  {
 	//Creating the Node Class, this is the first step of making a 
 	class Node{
 		
-		char character;
-		Node leftChild;
-		Node rightChild;
-		int numberOfOccurence;
+		private char element;
+		private Node leftChild; //pointer that points left
+		private Node rightChild; //pointer that point right
+		private int numberOfOccurence;
 		
-		Node(char character, int numberOfOccurence){
-			this.character = '\u0000'; //the null character 
+		//Constructor
+		public Node(char element, int numberOfOccurence){
+			this.element = '\u0000'; //the null character 
 			this.numberOfOccurence = 0;
+			this.leftChild = null;
+			this.rightChild = null;
 		}
+<<<<<<< HEAD
 	}
 	
 	/*
@@ -113,87 +117,30 @@ public class huffman  {
 		System.out.println("\n\n==========\tEnd of \"Jabberwock.txt\"\t==========\n");
 		
 
+=======
+>>>>>>> origin/Kevin
 		
-		System.out.println("Converting the line of string into a character array...");
-		char[] notUniqueArray = lineOfString.toCharArray();
-			
-		System.out.println("Converting the character array into a unique character of arrays \n");
-		String initial = ""; //Creating a string of unique char
-		for(int i = 0 ; i< notUniqueArray.length ; i++){
-			if(initial.indexOf(notUniqueArray[i]) == -1) //checking if the char is already added
-				initial += notUniqueArray[i];
-		}
-		
-		char[] uniqueCharArray = initial.toCharArray();
-		
-		printArray(uniqueCharArray);
-
-		System.out.println("\n\nCounting the number of occurences in original char array... \n");
-        //Creating an array of occurrences and initializing it with 0
-		int[] charOccurence = new int [uniqueCharArray.length];
-		for(int i = 0; i< charOccurence.length ; i++)
-			charOccurence[i] = 0;  
-		
-	    for(int i = 0 ; i < uniqueCharArray.length ; i++){
-	    	char current = uniqueCharArray[i];
-	    	for(int j = 0 ; j< notUniqueArray.length ; j++){
-	    		if(current == notUniqueArray[j])
-	    			charOccurence[i]++; //since same size
-	    		else{
-	    			//do nothing
-	    		}
-	    	}
+		//Accessors
+		//Getters
+	    public int getNumberOfOccurence(){
+			return numberOfOccurence;
 	    }
 	    
-		for(int i = 1 ; i <= charOccurence.length ;i++){
-			System.out.print("[" + uniqueCharArray[i-1] + "] occurs " + charOccurence[i-1] + " time(s) \t");
-			if(i % 5 == 0)
-				System.out.println();
-		}
-		
-		System.out.println("\n\nSorting the array in descending order...\n");
-		TwoinputsInsertionSort(charOccurence, uniqueCharArray);
-		for(int i = 1 ; i <= charOccurence.length ;i++){
-			System.out.print("[" + uniqueCharArray[i-1] + "] occurs " + charOccurence[i-1] + " time(s) \t");
-			if(i % 5 == 0)
-				System.out.println();
-		}
-	}
-	
-	
-	static void printArray(char[] array){	
-		for(int i = 1 ; i <= array.length ;i++){
-			System.out.print("[" + (i-1) + "] = " + array[i-1] + "\t");
-			if(i % 5 == 0)
-				System.out.println();
-		}
-	}
-	
-	/*
-	 * This method sorts an array in descending order. It is important to note that the char character must also correspond and be sorted as well
-	 */
-	static void TwoinputsInsertionSort(int[] array, char[] array2){
-		int temp;
-		char temp2;
-		for (int i = 0 ; i < array.length-1 ; i++){ //first ends before 1
-			for(int j = i+1 ; j > 0 ; j--){ //second 
-				if(array[j] > array[j-1]){
-					temp = array[j];
-					temp2 = array2[j];
-					array[j] = array[j-1];
-					array2[j] = array2[j-1];
-					array[j-1] = temp; //contains the higher value
-					array2[j-1] = temp2;
-				}
-			}
-	}
+	    public char getElement(){
+	    	return element;
+	    }
 		
 	}
+	
+	public static void buildTree(){
+		
+	}
+	
 	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-openFile();
+
 	}
 
 }
