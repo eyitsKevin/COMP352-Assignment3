@@ -1,10 +1,29 @@
 
 
+<<<<<<< HEAD
 public class Huffman{
+=======
+
+public class huffman  {
+>>>>>>> origin/Kevin
 	
 	Node root;
 	
 
+<<<<<<< HEAD
+	//The leaf class, a node is a leaf when the
+	 class Leaf extends Node{
+		
+		 public Leaf(){
+			 
+		 }
+		 
+	}
+	
+	
+	
+=======
+>>>>>>> origin/Kevin
 	/*
 	 * This method adds a new node whenever called. If root is not already added it will be created else it adds from left to right
 	 */
@@ -13,7 +32,7 @@ public class Huffman{
 		
 		if(root == null){ //If a root is not created yet
 			root = createNode;
-		} else {
+		} else { //root not equal to node
 			//Traversing through a tree
 			Node checkNode = root;
 			Node parent;
@@ -56,6 +75,54 @@ public class Huffman{
 			this.leftChild = null;
 			this.rightChild = null;
 		}
+<<<<<<< HEAD
+	}
+	
+	/*
+	 * @return true if the node is a leaf
+	 */
+	public static boolean isALeaf(Node node){
+		if(node.leftChild == null && node.rightChild == null)
+			return true;
+		else 
+			return false;
+	}
+	
+	public static void buildTree(){
+		
+	}
+	
+	
+	/*
+	 *  This method tries to open and read the file
+	 */
+	static public void openFile(){
+		
+		File inputFile = new File("Jabberwock.txt");
+		inputFile.setReadOnly(); //To prevent potentially destroying the file
+		Scanner inStream = null;
+		
+		try{
+			System.out.println("Attempting to open: \"" + inputFile.getName() +"\"");
+			inStream = new Scanner (new FileInputStream(inputFile));		
+	
+		} catch (FileNotFoundException e){
+			System.out.println("Error");
+			e.getMessage();
+			System.exit(0);
+		}
+		
+		String lineOfString = inStream.nextLine();
+		
+		System.out.println("\n==========\tPrinting out the content of \"Jabberwock.txt\"\t==========\n");
+	
+		System.out.print(lineOfString + " ");
+	
+		System.out.println("\n\n==========\tEnd of \"Jabberwock.txt\"\t==========\n");
+		
+
+=======
+>>>>>>> origin/Kevin
 		
 		//Accessors
 		//Getters
