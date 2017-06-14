@@ -1,6 +1,6 @@
 
 
-public class huffman  {
+public class Huffman{
 	
 	Node root;
 	
