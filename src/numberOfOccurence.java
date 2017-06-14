@@ -3,9 +3,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class numberOfOccurence extends huffman {
+public class numberOfOccurence extends Huffman {
 
-	huffman object2 = new huffman();
+	Huffman object2 = new Huffman();
 	
 	/*
 	 *  This method tries to open and read the file
