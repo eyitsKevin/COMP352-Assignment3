@@ -3,9 +3,22 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+
 public class huffman  {
 	
 	Node root;
+	
+
+	//The leaf class, a node is a leaf when the
+	 class Leaf extends Node{
+		
+		 public Leaf(){
+			 
+		 }
+		 
+	}
+	
+	
 	
 	/*
 	 * This method adds a new node whenever called. If root is not already added it will be created else it adds from left to right
@@ -15,7 +28,7 @@ public class huffman  {
 		
 		if(root == null){ //If a root is not created yet
 			root = createNode;
-		} else {
+		} else { //root not equal to node
 			//Traversing through a tree
 			Node checkNode = root;
 			Node parent;
@@ -55,6 +68,16 @@ public class huffman  {
 			this.character = '\u0000'; //the null character 
 			this.numberOfOccurence = 0;
 		}
+	}
+	
+	/*
+	 * @return true if the node is a leaf
+	 */
+	public static boolean isALeaf(Node node){
+		if(node.leftChild == null && node.rightChild == null)
+			return true;
+		else 
+			return false;
 	}
 	
 	public static void buildTree(){
