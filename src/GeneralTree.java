@@ -3,33 +3,32 @@
 public class GeneralTree {
 
 	Node root;
-
+	
 	public class Node{
 
-		private char element;
-		private String combinedElement;
+		private String element;
 		private Node leftChild; //pointer that points left
 		private Node rightChild; //pointer that point right
 		private int numberOfOccurence;
 
 		//Constructor
 		public Node(){
-			this.element = '\u0000'; //the null character 
+			this.element = "";
 			this.numberOfOccurence = 0;
 			this.leftChild = null;
 			this.rightChild = null;
 		}
 		
 		//Creates a parentNode
-		public Node(Node leftChild, Node rightChild, String combinedElement, int combinedFrequency){
-			this.combinedElement = combinedElement;
+		public Node(Node leftChild, Node rightChild, String element, int combinedFrequency){
+			this.element = element;
 			this.numberOfOccurence = combinedFrequency;
 			this.leftChild = leftChild;
 			this.rightChild = rightChild;
 		}
 		
 		
-		public Node(char element, int numberOfOccurence){
+		public Node(String element, int numberOfOccurence){
 			this.element = element; //the null character 
 			this.numberOfOccurence = numberOfOccurence;
 			this.leftChild = null;
@@ -38,27 +37,30 @@ public class GeneralTree {
 			
 		 public Node (Node leftChild, Node rightChild, int numberOfOccurence) {
 					this.numberOfOccurence = 0;
-					this.leftChild = null;
-					this.rightChild = null;
+					this.leftChild = leftChild;
+					this.rightChild = rightChild;
 		        }
 		 
-		 public boolean isLeaf(Node node){
-			 if(node.leftChild == null && node.rightChild == null)
+		 public boolean isLeaf(){
+			 if(this.leftChild == null && this.rightChild == null)
 				 return true;
 			 else
 				 return false;
 		 }
 
-		 public boolean isParent(Node node){
-			 if(node.combinedElement != null)	//since building a parent node will necessary have a combined element 
+		 public boolean isParent(){
+			 if(this.leftChild != null && this.rightChild != null)	//since building a parent node will necessary have a combined element 
 				 return true; 
 			 else 
 				 return false;
 		 }
-			public String toString(){
-				
-				return "the node " + this.combinedElement + "  occurs " + numberOfOccurence + " time(s)"; 
-			}
+	
+		 
+		 public String toString(){
+			
+				 return "the node {" + this.element + "} has a frequency of " + numberOfOccurence; 
+			 
+		 }
 		 
 
 		///////////////////////////////// Accessors /////////////////////////////////
@@ -69,14 +71,22 @@ public class GeneralTree {
 			return numberOfOccurence;
 		}
 
-		public char getElement(){
+		public String getElement(){
 			return element;
+		}
+		
+		public Node getRightChild(){
+			return rightChild;
+		}
+		
+		public Node getLeftChild(){
+			return leftChild;
 		}
 		
 		
 	}
 	
-	public Node[] toNodeArray(char[] element, int[] frequency){
+	public Node[] toNodeArray(String[] element, int[] frequency){
 		Node[] nodeArray = new Node[element.length];
 		for(int i = 0 ; i < element.length ; i++){
 			nodeArray[i] = new Node(element[i],frequency[i]);
@@ -102,22 +112,17 @@ public class GeneralTree {
 	}
 	
 	static Node addNode(Node leftNode, Node rightNode){
-		StringBuilder sb = new StringBuilder();
-		StringBuilder combinedChar = sb.append(leftNode.getElement()).append(rightNode.getElement());
-		String string = combinedChar.toString();
+		
+		String combinedString = leftNode.getElement() + "_" + rightNode.getElement();
 		int combinedFrequency = leftNode.getNumberOfOccurence() + rightNode.getNumberOfOccurence();
 		
 		GeneralTree tree = new GeneralTree();
-		Node parentNode = tree.new Node(leftNode,rightNode,string, combinedFrequency);
+		Node parentNode = tree.new Node(leftNode,rightNode,combinedString, combinedFrequency);
 		
 		return parentNode;
 		
 	}
-	
-	
 
-	
-	
 	
 		/////////////////////////////////  /////////////////////////////////
 	
@@ -133,7 +138,7 @@ public class GeneralTree {
 	/*
 	 * This method adds a new node whenever called. If root is not already added it will be created else it adds from left to right
 	 */
-	public void addNode(char element, int numberOfOccurence){
+	public void addNode(String element, int numberOfOccurence){
 		
 		Node createNode = new Node(element,numberOfOccurence);
 
@@ -168,9 +173,25 @@ public class GeneralTree {
 	}//end of add Node
 
 
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+	GeneralTree gt = new GeneralTree();
+		Node n1 = gt.new Node("node1", 6);
+		Node n2 = gt.new Node("node2", 3);
+		Node n4 = gt.new Node("node4", 4);
+		
+		GeneralTree.Node[] nodeArray = {n1,n2,n4};
+		
+	Node n3 =	GeneralTree.addNode(n1, n2); // tree
+	System.out.println(n3);
+	
+	GeneralTree.insertionSort(nodeArray);
+	System.out.println(nodeArray[0]);
 
+	
+	
+		
 	}
 }
 
