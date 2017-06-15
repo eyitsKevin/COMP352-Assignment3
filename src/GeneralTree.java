@@ -44,6 +44,39 @@ public class GeneralTree {
 		}
 	}
 	
+	public Node[] toNodeArray(char[] element, int[] frequency){
+		Node[] nodeArray = new Node[element.length];
+		for(int i = 0 ; i < element.length ; i++){
+			nodeArray[i] = new Node(element[i],frequency[i]);
+		}
+		return nodeArray;
+	}
+	
+	/*
+	 * This method sorts an array in descending order. It is important to note that the char character must also correspond and be sorted as well
+	 */
+	static void insertionSort(Node[] array){
+		Node temp;
+
+		for (int i = 0 ; i < array.length-1 ; i++){ //first ends before 1
+			for(int j = i+1 ; j > 0 ; j--){ //second 
+				if(array[j].getNumberOfOccurence() > array[j-1].getNumberOfOccurence()){
+					temp = array[j];
+					array[j] = array[j-1];
+					array[j-1] = temp; //contains the higher value
+				}
+			}
+		}
+	}
+	
+	
+	
+	public Node addTwoSmallest(Node[] nodeArray){
+		
+		
+		
+	}
+	
 	
 		/////////////////////////////////  /////////////////////////////////
 	
