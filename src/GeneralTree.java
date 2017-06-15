@@ -18,6 +18,14 @@ public class GeneralTree {
 			this.leftChild = null;
 			this.rightChild = null;
 		}
+			
+		 public Node (Node leftChild, Node rightChild, int numberOfOccurence) {
+					this.numberOfOccurence = 0;
+					this.leftChild = null;
+					this.rightChild = null;
+		        }
+		 
+		
 
 		///////////////////////////////// Accessors /////////////////////////////////
 		
@@ -30,13 +38,29 @@ public class GeneralTree {
 		public char getElement(){
 			return element;
 		}
+		
+		public String toString(){
+			return "the node " + this.element + " is occurs " + numberOfOccurence; 
+		}
 	}
+	
+	
+		/////////////////////////////////  /////////////////////////////////
+	
+	public void buildTree(){
+		
+	}
+	
+
+	
+
 
 
 	/*
 	 * This method adds a new node whenever called. If root is not already added it will be created else it adds from left to right
 	 */
 	public void addNode(char element, int numberOfOccurence){
+		
 		Node createNode = new Node(element,numberOfOccurence);
 
 		if(root == null){ //If a root is not created yet

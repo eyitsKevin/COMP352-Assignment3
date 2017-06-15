@@ -112,6 +112,14 @@ public class Huffman {
 		}
 	}
 	
+	public void createHuffmanTree(int[] array, char[] array2){
+		int i = 0;
+		int j = i+1;
+		int[] queue;
+		//adding the two smallest values
+		queue[] = array[i] + array[j]
+		
+	}
 	
 	
 	
