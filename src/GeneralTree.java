@@ -3,7 +3,7 @@
 public class GeneralTree {
 
 	Node root;
-	
+
 	public class Node{
 
 		private String element;
@@ -18,7 +18,7 @@ public class GeneralTree {
 			this.leftChild = null;
 			this.rightChild = null;
 		}
-		
+
 		//Creates a parentNode
 		public Node(Node leftChild, Node rightChild, String element, int combinedFrequency){
 			this.element = element;
@@ -26,46 +26,46 @@ public class GeneralTree {
 			this.leftChild = leftChild;
 			this.rightChild = rightChild;
 		}
-		
-		
+
+
 		public Node(String element, int numberOfOccurence){
 			this.element = element; //the null character 
 			this.numberOfOccurence = numberOfOccurence;
 			this.leftChild = null;
 			this.rightChild = null;
 		}
-			
-		 public Node (Node leftChild, Node rightChild, int numberOfOccurence) {
-					this.numberOfOccurence = 0;
-					this.leftChild = leftChild;
-					this.rightChild = rightChild;
-		        }
-		 
-		 public boolean isLeaf(){
-			 if(this.leftChild == null && this.rightChild == null)
-				 return true;
-			 else
-				 return false;
-		 }
 
-		 public boolean isParent(){
-			 if(this.leftChild != null && this.rightChild != null)	//since building a parent node will necessary have a combined element 
-				 return true; 
-			 else 
-				 return false;
-		 }
-	
-		 
-		 public String toString(){
-			
-				 return "the node {" + this.element + "} has a frequency of " + numberOfOccurence; 
-			 
-		 }
-		 
+		public Node (Node leftChild, Node rightChild, int numberOfOccurence) {
+			this.numberOfOccurence = 0;
+			this.leftChild = leftChild;
+			this.rightChild = rightChild;
+		}
+
+		public boolean isLeaf(){
+			if(this.leftChild == null && this.rightChild == null)
+				return true;
+			else
+				return false;
+		}
+
+		public boolean isParent(){
+			if(this.leftChild != null || this.rightChild != null)	
+				return true; 
+			else 
+				return false;
+		}
+
+
+		public String toString(){
+
+			return "the node {" + this.element + "} has a frequency of " + numberOfOccurence; 
+
+		}
+
 
 		///////////////////////////////// Accessors /////////////////////////////////
-		
-		
+
+
 		//Getters
 		public int getNumberOfOccurence(){
 			return numberOfOccurence;
@@ -74,18 +74,18 @@ public class GeneralTree {
 		public String getElement(){
 			return element;
 		}
-		
+
 		public Node getRightChild(){
 			return rightChild;
 		}
-		
+
 		public Node getLeftChild(){
 			return leftChild;
 		}
-		
-		
+
+
 	}
-	
+
 	public Node[] toNodeArray(String[] element, int[] frequency){
 		Node[] nodeArray = new Node[element.length];
 		for(int i = 0 ; i < element.length ; i++){
@@ -93,7 +93,7 @@ public class GeneralTree {
 		}
 		return nodeArray;
 	}
-	
+
 	/*
 	 * This method sorts an array in descending order. It is important to note that the char character must also correspond and be sorted as well
 	 */
@@ -110,28 +110,75 @@ public class GeneralTree {
 			}
 		}
 	}
-	
+
 	static Node addNode(Node leftNode, Node rightNode){
-		
+
 		String combinedString = leftNode.getElement() + "_" + rightNode.getElement();
 		int combinedFrequency = leftNode.getNumberOfOccurence() + rightNode.getNumberOfOccurence();
-		
+
 		GeneralTree tree = new GeneralTree();
 		Node parentNode = tree.new Node(leftNode,rightNode,combinedString, combinedFrequency);
-		
+
 		return parentNode;
-		
+
 	}
 
-	
-		/////////////////////////////////  /////////////////////////////////
-	
-	public void buildTree(){
-		
+	public static void inOrderTraverse (Node root){ 
+		if (root.leftChild != null){
+			inOrderTraverse (root.leftChild);
+		}
+		System.out.println(root.toString());
+		if (root.rightChild != null){
+			inOrderTraverse (root.rightChild);
+		}
 	}
-	
 
-	
+	/////////////////////////////////  /////////////////////////////////
+
+	public static void buildTree(Node[]  node){
+
+		for(int i = node.length-1 ; i > 0 ; i--){
+
+			if(i == node.length-1){
+				System.out.println("Displaying root node");
+				System.out.println(node[i].toString());
+			}
+		}
+	}
+
+
+
+	public  static void generateBinaryCode(GeneralTree.Node root, String find){
+
+		
+		   //CONCERNING THE LEFT SUCE
+			if(root.getLeftChild().getElement().contains(find)){
+				if(root.getLeftChild().isParent() & root.getLeftChild().getElement().contains(find)){
+					System.out.print(0);
+					root = root.getLeftChild();
+					generateBinaryCode(root, find);
+			
+				}
+				else
+					System.out.print(0);
+			
+			}
+			
+		
+				
+			//CONCERNING THE RIGHT SIDE
+			if(root.getRightChild().getElement().contains(find)){
+				if(root.getRightChild().isParent() & root.getRightChild().getElement().contains(find)){
+					System.out.print(1);
+					root = root.getRightChild();
+					generateBinaryCode(root, find);
+				}
+				else 
+					System.out.print(1);
+			}
+			
+			
+	}
 
 
 
@@ -139,7 +186,7 @@ public class GeneralTree {
 	 * This method adds a new node whenever called. If root is not already added it will be created else it adds from left to right
 	 */
 	public void addNode(String element, int numberOfOccurence){
-		
+
 		Node createNode = new Node(element,numberOfOccurence);
 
 		if(root == null){ //If a root is not created yet
@@ -176,22 +223,40 @@ public class GeneralTree {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-	GeneralTree gt = new GeneralTree();
-		Node n1 = gt.new Node("node1", 6);
-		Node n2 = gt.new Node("node2", 3);
-		Node n4 = gt.new Node("node4", 4);
-		
-		GeneralTree.Node[] nodeArray = {n1,n2,n4};
-		
-	Node n3 =	GeneralTree.addNode(n1, n2); // tree
-	System.out.println(n3);
-	
-	GeneralTree.insertionSort(nodeArray);
-	System.out.println(nodeArray[0]);
 
-	
-	
-		
+
+		char[] element = {'a','b','c','d'};
+		int[] freq = {1,2,3,4};
+
+		Node[] node = Huffman.createHuffmanTree(element, freq);
+
+		inOrderTraverse (node[node.length-1] );
+
+
+				for(int i = 0 ; i < node.length;i++){
+		generateBinaryCode(node[node.length-1], Character.toString(element[i]));
+		System.out.println();
+				}
+				
+				System.out.println(node[2].isParent() + " " + node[0].toString());
+
+				String wuush = "ab_c";
+				System.out.println(wuush.contains("c"));
+
+		System.out.println();
+		System.out.println("\t         "+node[node.length-1]);
+		System.out.print("\t"   + node[node.length-1].getLeftChild());
+		System.out.println("\t "   + node[node.length-1].getRightChild());
+		System.out.print("\t"   + node[node.length-1].getLeftChild().getLeftChild());
+		System.out.print("\t"   + node[node.length-1].getLeftChild().getRightChild());
+		System.out.print("\t"   + node[node.length-1].getRightChild().getLeftChild());
+		System.out.print("\t"   + node[node.length-1].getRightChild().getRightChild());
+		System.out.println();
+		System.out.print("\t"   + node[node.length-1].getRightChild().getLeftChild().getLeftChild());
+		System.out.print("\t"   + node[node.length-1].getRightChild().getLeftChild().getRightChild());
+
+
+
 	}
 }
 
