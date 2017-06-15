@@ -86,9 +86,20 @@ public class Huffman {
 		}
 
 		System.out.println("TEST");
-		createHuffmanTree(uniqueCharArray, charOccurence);
+		GeneralTree.Node[] nodeArray = createHuffmanTree(uniqueCharArray, charOccurence);
+//		String[] binaryArray = binaryCodeArray(nodeArray, uniqueCharArray);
+		System.out.println("SYMBOLS\t   FREQUENCY\tBINARY CODE");
+		for(int i = 0 ; i < nodeArray.length ; i++){
+
+			System.out.print("  "+uniqueCharArray[i] + "\t      " + charOccurence[i]  + "\t " );
+			generateBinaryCode(nodeArray[nodeArray.length-1], Character.toString(uniqueCharArray[i]));
+			System.out.println();
+		}
+
+
 		
 		
+
 
 	}
 
@@ -121,7 +132,7 @@ public class Huffman {
 		}
 	}
 
-	public static void createHuffmanTree(char[] element, int[] frequencyArray){
+	public static GeneralTree.Node[] createHuffmanTree(char[] element, int[] frequencyArray){
 		int i = 0;
 		int j = i+1;
 
@@ -148,62 +159,63 @@ public class Huffman {
 			GeneralTree.insertionSort(nodeArray);
 			iterator++;
 		}
-		
-		GeneralTree.Node root = nodeArray[nodeArray.length-1];
-		System.out.println(root);
-		System.out.println(root.getLeftChild());
-		System.out.println(root.getRightChild());
-		System.out.println(root.getLeftChild().getLeftChild()); //193
-		System.out.println(root.getLeftChild().getRightChild());
-		System.out.println(root.getRightChild().getLeftChild());
-		System.out.println(root.getRightChild().getRightChild());
-		System.out.println();
-		System.out.println(root.getLeftChild().getRightChild().getLeftChild());
-		System.out.println(root.getLeftChild().getRightChild().getRightChild());
-		System.out.println(root.getLeftChild().getRightChild().getLeftChild().getLeftChild());
-		System.out.println(root.getLeftChild().getRightChild().getLeftChild().getRightChild());
-		System.out.println(root.getLeftChild().getRightChild().getLeftChild().getLeftChild().getLeftChild());
-		System.out.println(root.getLeftChild().getRightChild().getLeftChild().getLeftChild().getRightChild());
-		System.out.println(root.getLeftChild().getRightChild().getLeftChild().getRightChild());
-		System.out.println(root.getLeftChild().getRightChild().getRightChild());
 
-		
+		//		GeneralTree.Node root = nodeArray[nodeArray.length-1];
+		//		System.out.println(root);
+		//		System.out.println(root.getLeftChild());
+		//		System.out.println(root.getRightChild());
+		//		System.out.println(root.getLeftChild().getLeftChild()); //193
+		//		System.out.println(root.getLeftChild().getRightChild());
+		//		System.out.println(root.getRightChild().getLeftChild());
+		//		System.out.println(root.getRightChild().getRightChild());
+		//		System.out.println();
+		//		System.out.println(root.getLeftChild().getRightChild().getLeftChild());
+		//		System.out.println(root.getLeftChild().getRightChild().getRightChild());
+		//		System.out.println(root.getLeftChild().getRightChild().getLeftChild().getLeftChild());
+		//		System.out.println(root.getLeftChild().getRightChild().getLeftChild().getRightChild());
+		//		System.out.println(root.getLeftChild().getRightChild().getLeftChild().getLeftChild().getLeftChild());
+		//		System.out.println(root.getLeftChild().getRightChild().getLeftChild().getLeftChild().getRightChild());
+		//		System.out.println(root.getLeftChild().getRightChild().getLeftChild().getRightChild());
+		//		System.out.println(root.getLeftChild().getRightChild().getRightChild());
 
-		generateBinaryCode(nodeArray[nodeArray.length-1], "!");
-	
-		
+		return nodeArray;
+
 
 	}
+
+
+
+
+	 
+	public  static void generateBinaryCode(GeneralTree.Node root, String find){
 	
 
-	public static void generateBinaryCode(GeneralTree.Node root, String find){
-
-		
 		if(root.getLeftChild().isLeaf())
-			System.out.print(0); 
-		
+			System.out.print(0);
+
 		if(root.getRightChild().isLeaf())
-			System.out.print(1); 
-		
+			System.out.print(1);
+
 		if(root.getLeftChild().getElement().contains(find) && !root.getLeftChild().isLeaf()){
 			root = root.getLeftChild();
-			System.out.print(0); 
+			System.out.print(0);
 			generateBinaryCode(root, find);
 		}
-		
+
 		if(root.getRightChild().getElement().contains(find) && !root.getRightChild().isLeaf()){
 			root = root.getRightChild();
-			System.out.print(1); 
+			System.out.print(1);
 			generateBinaryCode(root, find);
 		}
-		
+
 
 	}
-		
-		
-		
-		
-	
+
+
+
+
+
+
 
 	static public  String[] charToString(char[] character){
 		String[] toString = new String[character.length];
@@ -219,15 +231,15 @@ public class Huffman {
 		return toString;
 	}
 
-	
+
 
 
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		openFile();
-		
-		
+
+
 
 	}
 
