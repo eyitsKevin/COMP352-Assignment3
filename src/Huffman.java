@@ -3,6 +3,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+
+
 public class Huffman {
 
 	
@@ -81,6 +83,10 @@ public class Huffman {
 			if(i % 5 == 0)
 				System.out.println();
 		}
+		
+		System.out.println("TEST");
+		createHuffmanTree(uniqueCharArray, charOccurence);
+		
 	}
 
 
@@ -100,7 +106,7 @@ public class Huffman {
 		char temp2;
 		for (int i = 0 ; i < array.length-1 ; i++){ //first ends before 1
 			for(int j = i+1 ; j > 0 ; j--){ //second 
-				if(array[j] > array[j-1]){
+				if(array[j] < array[j-1]){
 					temp = array[j];
 					temp2 = array2[j];
 					array[j] = array[j-1];
@@ -112,21 +118,48 @@ public class Huffman {
 		}
 	}
 	
-	public void createHuffmanTree(int[] array, char[] array2){
+	public static void createHuffmanTree(char[] elementArray, int[] frequencyArray){
 		int i = 0;
 		int j = i+1;
 		int[] queue;
-		//adding the two smallest values
-		queue[] = array[i] + array[j]
+		int size = elementArray.length;
 		
-	}
+		GeneralTree tree = new GeneralTree();
+		GeneralTree.Node[] nodeArray = new GeneralTree.Node[elementArray.length]; //creating a Node[] array
+		
+		//Transforming into a Node[] array
+		nodeArray = tree.toNodeArray(elementArray, frequencyArray);
+		
+		
+		//adding the two smallest values to create a root array of Node
+		//adding the one at position i will be 1, while adding at position i+1 will be the right
+		int iterator = 0; // will iterate through the array
+		while(iterator < nodeArray.length-1){
+			//adding both iterator
+			nodeArray[iterator+1] = GeneralTree.addNode(nodeArray[iterator], nodeArray[iterator+1]); //returns a node a puts it at position iterator+1
+			GeneralTree.insertionSort(nodeArray);
+			iterator++;
+		}
+		
+
+		for(int k = 1 ; k <= nodeArray.length ;k++){
+			System.out.print("[" + (k-1) + "] = " + nodeArray[k-1] + "\t");
+			if(k % 5 == 0)
+				System.out.println();
+		}
+	
+			
+		}
+		
+	
 	
 	
 	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-openFile();
+		openFile();
+
 	}
 
 }

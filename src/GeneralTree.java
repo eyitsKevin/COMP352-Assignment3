@@ -7,14 +7,31 @@ public class GeneralTree {
 	public class Node{
 
 		private char element;
+		private String combinedElement;
 		private Node leftChild; //pointer that points left
 		private Node rightChild; //pointer that point right
 		private int numberOfOccurence;
 
 		//Constructor
-		public Node(char element, int numberOfOccurence){
+		public Node(){
 			this.element = '\u0000'; //the null character 
 			this.numberOfOccurence = 0;
+			this.leftChild = null;
+			this.rightChild = null;
+		}
+		
+		//Creates a parentNode
+		public Node(Node leftChild, Node rightChild, String combinedElement, int combinedFrequency){
+			this.combinedElement = combinedElement;
+			this.numberOfOccurence = combinedFrequency;
+			this.leftChild = leftChild;
+			this.rightChild = rightChild;
+		}
+		
+		
+		public Node(char element, int numberOfOccurence){
+			this.element = element; //the null character 
+			this.numberOfOccurence = numberOfOccurence;
 			this.leftChild = null;
 			this.rightChild = null;
 		}
@@ -25,7 +42,24 @@ public class GeneralTree {
 					this.rightChild = null;
 		        }
 		 
-		
+		 public boolean isLeaf(Node node){
+			 if(node.leftChild == null && node.rightChild == null)
+				 return true;
+			 else
+				 return false;
+		 }
+
+		 public boolean isParent(Node node){
+			 if(node.combinedElement != null)	//since building a parent node will necessary have a combined element 
+				 return true; 
+			 else 
+				 return false;
+		 }
+			public String toString(){
+				
+				return "the node " + this.combinedElement + "  occurs " + numberOfOccurence + " time(s)"; 
+			}
+		 
 
 		///////////////////////////////// Accessors /////////////////////////////////
 		
@@ -39,9 +73,7 @@ public class GeneralTree {
 			return element;
 		}
 		
-		public String toString(){
-			return "the node " + this.element + " is occurs " + numberOfOccurence; 
-		}
+		
 	}
 	
 	public Node[] toNodeArray(char[] element, int[] frequency){
@@ -60,7 +92,7 @@ public class GeneralTree {
 
 		for (int i = 0 ; i < array.length-1 ; i++){ //first ends before 1
 			for(int j = i+1 ; j > 0 ; j--){ //second 
-				if(array[j].getNumberOfOccurence() > array[j-1].getNumberOfOccurence()){
+				if(array[j].getNumberOfOccurence() < array[j-1].getNumberOfOccurence()){
 					temp = array[j];
 					array[j] = array[j-1];
 					array[j-1] = temp; //contains the higher value
@@ -69,13 +101,22 @@ public class GeneralTree {
 		}
 	}
 	
-	
-	
-	public Node addTwoSmallest(Node[] nodeArray){
+	static Node addNode(Node leftNode, Node rightNode){
+		StringBuilder sb = new StringBuilder();
+		StringBuilder combinedChar = sb.append(leftNode.getElement()).append(rightNode.getElement());
+		String string = combinedChar.toString();
+		int combinedFrequency = leftNode.getNumberOfOccurence() + rightNode.getNumberOfOccurence();
 		
+		GeneralTree tree = new GeneralTree();
+		Node parentNode = tree.new Node(leftNode,rightNode,string, combinedFrequency);
 		
+		return parentNode;
 		
 	}
+	
+	
+
+	
 	
 	
 		/////////////////////////////////  /////////////////////////////////
