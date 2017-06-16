@@ -4,12 +4,31 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /*
- * 
+ *  Question 1 b)  
+ *  Creating a general tree is fairly simple. A class name GenertalTree.java has an inner class named Node. A tree Node can either
+ *  point to a left or right child or null if its a leaf. 
+ *  
+ *  
+ *  Question 1 d)
+ *  
+ *  
+ *  Question 1 g)
+ *  The splay tree implemented will be a child of the GeneralTree. It will have all the basic attributes from GeneralTree
+ *  
+ *  Question 1 h)
+ *  AVL tree is a tree that balances when the height of the 
+ *  
+ *  Since there is a lot of data, I opt to choose the splay tree that accesses the data much more faster as the
+ *  frequent data I need to access will generally be on the top of the tree. 
+ *  
+ *  
  * Question 4 a)
  * Encoded string :  she only paints with bold colors; she does not like pastels.
  * output : 0101110010111101001110011110010010011010101001010111001100101111110011010001001011111100110111101011010100001110010101110010100001111010111001010010111110011100111001101010101111001101011
  * 
- * The lenght 
+ * The length of the String is 60 characters. If every characters is equal to 8 bits then 60x8bits = 480 bits. 
+ * While the length of the binary code encoded is of 187. 187x1bits = 187bits. The encoded code is 61.04% smaller
+ * than the string. 
  * 
  * 
  * 
@@ -201,42 +220,6 @@ public class Huffman extends GeneralTree {
 	}
 
 
-
-
-
-	//	public  static void generateBinaryCode(GeneralTree.Node root, String find){
-	//
-	//			if(root == null)
-	//				return;
-	//			
-	//			//else if(root.isLeaf() == null)
-	//				return;
-	//		
-	//		   //CONCERNING THE LEFT SUCE
-	//				if(root.getLeftChild().getElement().contains(find)){
-	//					if(root.getLeftChild().isParent() & root.getLeftChild().getElement().contains(find)){
-	//						System.out.print(0);
-	//						root = root.getLeftChild();
-	//					}
-	//					else
-	//						System.out.print(0);
-	//				
-	//				}
-	//					
-	//			//CONCERNING THE RIGHT SIDE
-	//				if(root.getRightChild().getElement().contains(find)){
-	//					if(root.getRightChild().isParent() & root.getRightChild().getElement().contains(find)){
-	//						System.out.print(1);
-	//						root = root.getRightChild();
-	//					}
-	//					else 
-	//						System.out.print(1);
-	//				
-	//					generateBinaryCode(root, find);
-	//
-	//				}
-	//}
-
 	public static String generateBinaryCode(GeneralTree.Node root, String character, String returnedString){
 		String left = "";
 		String right = "";
@@ -301,18 +284,13 @@ public class Huffman extends GeneralTree {
 		String[] stringArray = charToString(charArray);
 
 
-		System.out.print("Converting \"" + a + "\" into binary : ");
+		System.out.print("Encoding the string \"" + a + "\" into binary : ");
 		for(int i = 0 ; i < stringArray.length ; i++)
 			for(int j = 0 ; j < nodeArray.length ; j++){
 				if(stringArray[i].equals(nodeArray[j].getElement()))
 					System.out.print(binaryArray[j]);
 			}
 		
-		String n1 = "she only paints with bold colors; she does not like pastels.";
- String n = "0101110010111101001110011110010010011010101001010111001100101111110011010001001011111100110111101011010100001110010101110010100001111010111001010010111110011100111001101010101111001101011";
- System.out.println(n.length());
- System.out.println(n1.length());
- System.out.println("---");
 
 
 	}
