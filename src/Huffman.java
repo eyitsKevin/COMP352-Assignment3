@@ -3,38 +3,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-/*
- *  Question 1 b)  
- *  Creating a general tree is fairly simple. A class name GenertalTree.java has an inner class named Node. A tree Node can either
- *  point to a left or right child or null if its a leaf. 
- *  
- *  
- *  Question 1 d)
- *  
- *  
- *  Question 1 g)
- *  The splay tree implemented will be a child of the GeneralTree. It will have all the basic attributes from GeneralTree
- *  
- *  Question 1 h)
- *  AVL tree is a tree that balances when the height of the 
- *  
- *  Since there is a lot of data, I opt to choose the splay tree that accesses the data much more faster as the
- *  frequent data I need to access will generally be on the top of the tree. 
- *  
- *  
- * Question 4 a)
- * Encoded string :  she only paints with bold colors; she does not like pastels.
- * output : 0101110010111101001110011110010010011010101001010111001100101111110011010001001011111100110111101011010100001110010101110010100001111010111001010010111110011100111001101010101111001101011
- * 
- * The length of the String is 60 characters. If every characters is equal to 8 bits then 60x8bits = 480 bits. 
- * While the length of the binary code encoded is of 187. 187x1bits = 187bits. The encoded code is 61.04% smaller
- * than the string. 
- * 
- * 
- * 
- * 
- * 
- */
+
 
 
 
@@ -42,6 +11,7 @@ public class Huffman extends GeneralTree {
 
 	private String lineOfString;
 	private	static GeneralTree.Node[] nodeArray;
+	private static char[] uniqueCharArray;
 
 	/*
 	 *  This method tries to open and read the file
@@ -73,7 +43,7 @@ public class Huffman extends GeneralTree {
 		inStream.close();
 	}
 
-	public static String[] getCharArray(String lineOfString){
+	public static String[] getBinaryArray(String lineOfString){
 
 		System.out.println("Converting the line of string into a character array...");
 		char[] notUniqueArray = lineOfString.toCharArray();
@@ -85,7 +55,7 @@ public class Huffman extends GeneralTree {
 				initial += notUniqueArray[i];
 		}
 
-		char[] uniqueCharArray = initial.toCharArray();
+		uniqueCharArray = initial.toCharArray();
 
 		printArray(uniqueCharArray);
 
@@ -273,26 +243,31 @@ public class Huffman extends GeneralTree {
 		Huffman m = new Huffman();
 		File fileName = new File("Jabberwock.txt");
 		m.openFile(fileName);
-		getCharArray(m.lineOfString);
+		getBinaryArray(m.lineOfString);
+
+		System.out.println();
 
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Please enter your string: ");
-		String a = sc.nextLine();
+		for(;;){
+			System.out.print("Please enter your string or enter -1 if you want to terminate the program: ");
+			String a = sc.nextLine();
 
-		char[] charArray = a.toCharArray();
-		String[] binaryArray = getCharArray(m.lineOfString);
-		String[] stringArray = charToString(charArray);
+			if(a.equals("-1"))
+				System.exit(0);
+
+			char[] charArray = a.toCharArray();
+			String[] binaryArray = getBinaryArray(m.lineOfString);
 
 
-		System.out.print("Encoding the string \"" + a + "\" into binary : ");
-		for(int i = 0 ; i < stringArray.length ; i++)
-			for(int j = 0 ; j < nodeArray.length ; j++){
-				if(stringArray[i].equals(nodeArray[j].getElement()))
-					System.out.print(binaryArray[j]);
+			System.out.print("Encoding the string \"" + a + "\" into binary : ");
+			for(int i = 0 ; i < charArray.length ; i++){
+				for(int j = 0 ; j < uniqueCharArray.length ; j++){
+					if(charArray[i] == (uniqueCharArray[j]))
+						System.out.print(binaryArray[j]);	
+				}
 			}
-		
 
-
+			System.out.println();
+		}
 	}
-
 }
