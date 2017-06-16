@@ -99,6 +99,17 @@ public class ATree extends GeneralTree{
 	public void zigzig(){
 
 	}
+	
+	public void run(String n){
+		char command =  n.charAt(0); //if a123 returns a
+		String number = n.substring(1); //after the substring
+		int value = Integer.parseInt(number);
+		switch(command){
+		case 'a' = insert();
+				
+		}
+		
+	}
 
 
 	//Splay will bring the a node to the root by either performing a zig-zag or zig-zig - or zig
