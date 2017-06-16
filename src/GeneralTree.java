@@ -1,4 +1,4 @@
-
+import GeneralTree.Node;
 
 public class GeneralTree {
 
@@ -10,11 +10,14 @@ public class GeneralTree {
 
 	public class Node{
 
-		private String element;
-		private Node leftChild; //pointer that points left
-		private Node rightChild; //pointer that point right
-		private int numberOfOccurence;
+		protected String element;
+		protected Node leftChild; //pointer that points left
+		protected Node rightChild; //pointer that point right
+		protected int numberOfOccurence;
 
+		protected Node grandParent; //zig-zag or zig-zig
+		protected Node parent; //zig
+		
 		//Constructor
 		public Node(){
 			this.element = "";
@@ -66,6 +69,14 @@ public class GeneralTree {
 			else 
 				return false;
 		}
+		
+		public Node getParent(){
+			return parent;
+		}
+		
+		public Node getGP(){
+			return grandParent;
+		}
 
 
 		public String toString(){
@@ -98,7 +109,6 @@ public class GeneralTree {
 		}
 		
 	
-
 
 	}
 

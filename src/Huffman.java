@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 
 
-public class Huffman {
+public class Huffman extends GeneralTree {
 
 	private String lineOfString;
 	private	static GeneralTree.Node[] nodeArray;
@@ -57,7 +57,7 @@ public class Huffman {
 
 		printArray(uniqueCharArray);
 
-		System.out.println("\n\nCounting the number of occurences in original char array... \n");
+		System.out.println("\n\nCounting the number of occurences in original char array... ");
 		//Creating an array of occurrences and initializing it with 0
 		int[] charOccurence = new int [uniqueCharArray.length];
 		for(int i = 0; i< charOccurence.length ; i++)
@@ -74,13 +74,9 @@ public class Huffman {
 			}
 		}
 
-		for(int i = 1 ; i <= charOccurence.length ;i++){
-			System.out.print("[" + uniqueCharArray[i-1] + "] occurs " + charOccurence[i-1] + " time(s) \t");
-			if(i % 5 == 0)
-				System.out.println();
-		}
 
-		System.out.println("\n\nSorting the array in descending order...\n");
+
+		System.out.println("Sorting the array in descending order...\n");
 		TwoinputsInsertionSort(charOccurence, uniqueCharArray);
 		for(int i = 1 ; i <= charOccurence.length ;i++){
 			System.out.print("[" + uniqueCharArray[i-1] + "] occurs " + charOccurence[i-1] + " time(s) \t");

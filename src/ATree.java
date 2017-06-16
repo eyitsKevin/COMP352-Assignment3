@@ -3,9 +3,45 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import com.sun.crypto.provider.AESCipher.General;
+
+import GeneralTree.Node;
+
 
 public class ATree extends GeneralTree{
 
+	private int removeCount = 0; //getting the total number of remove operations
+	private int addCount = 0; //getting the total number of add operations
+	private int findCount = 0; // getting the total number of find operations
+	private int splayCount = 0; //getting the total number of parent change
+	private int comparisonCount = 0; //getting the total number of comparison
+	
+	
+	/*
+	 * FINISHING UP THE NODE CLASS WITH GRANDPARENT AND PARENT POINTERS
+	 */
+
+
+	
+	/////////////////////////////// GETTERS AND SETTERS /////////////////////////
+	
+	public Node getParent(){
+		getParent();
+	}
+	
+	public Node getGP(){
+		getGP();
+	}
+	
+	public void setLeftChild(Node n){
+		Node leftChild = n;
+		if(n != null)
+			leftChild.parent = this;
+		
+	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	
 	//Implemeneting a SPLAYTREE
 
 
@@ -73,6 +109,17 @@ public class ATree extends GeneralTree{
 
 	}
 	
+	public void remove(int value, Node node){
+		//if the value to remove is smaller than the value of the current node
+		if(value < node.getNumberOfOccurence()){
+			if (node.getLeftChild() != null)
+				remove(value,node.getLeftChild()); //recursive method looking at the next left child
+		
+			if(node.getLeftChild() == null)
+				node.g
+		}
+		
+	}
 
 	
 	public void zig(Node n){
@@ -86,7 +133,7 @@ public class ATree extends GeneralTree{
 	}
 
 	public void zigzag(Node n){
-		if (n == n.parent.leftChild) {
+		if (n == n.leftChild) {
 			rotateRight(node);
 			rotateLeft(node); 
 		} else {
@@ -96,6 +143,7 @@ public class ATree extends GeneralTree{
 
 	}
 
+	
 	public void zigzig(){
 
 	}
@@ -115,7 +163,8 @@ public class ATree extends GeneralTree{
 
 	//Splay will bring the a node to the root by either performing a zig-zag or zig-zig - or zig
 	public void splay(Node n){
-		while (n != root){
+		while (n.parent == null){ //while it is the root n.root != null
+			Node parent = n.getParent(); //n has a parent
 			if(root.getLeftChild() == n || root.getRightChild() == n){ //performs a zig
 				
 			}
