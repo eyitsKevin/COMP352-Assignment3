@@ -15,33 +15,33 @@ public class ATree extends GeneralTree{
 	private int findCount = 0; // getting the total number of find operations
 	private int splayCount = 0; //getting the total number of parent change
 	private int comparisonCount = 0; //getting the total number of comparison
-	
-	
+	private static int sizeOfTree = 0; //gets updated if add/remove functions are called
+
 	/*
 	 * FINISHING UP THE NODE CLASS WITH GRANDPARENT AND PARENT POINTERS
 	 */
 
 
-	
+
 	/////////////////////////////// GETTERS AND SETTERS /////////////////////////
-	
+
 	public Node getParent(){
 		getParent();
 	}
-	
+
 	public Node getGP(){
 		getGP();
 	}
-	
+
 	public void setLeftChild(Node n){
 		Node leftChild = n;
 		if(n != null)
 			leftChild.parent = this;
-		
+
 	}
-	
+
 	///////////////////////////////////////////////////////////////////////////
-	
+
 	//Implemeneting a SPLAYTREE
 
 
@@ -97,39 +97,50 @@ public class ATree extends GeneralTree{
 		//Checking if the tree is empty
 		GeneralTree aTree = new GeneralTree();
 		if(aTree.root == null){ //if empty create a new node and assign it as a root
-			aTree.root = n;
+			aTree.root = new Node(n.numberOfOccurence) ; 
 			return;
 		}
-		else{
-			aTree.root = splay(valueOfNode, aTree.root);
-			if( value < aTree.root.getNumberOfOccurence()){ //if value youre trying to add is smaller than the root
+		else{ //there's no duplicate operations
+			n = new Node(n.getNumberOfOccurence());
+			if( n.getNumberOfOccurence() < aTree.root.getNumberOfOccurence()){ //if value youre trying to add is smaller than the root
+				n.leftChild = aTree.root.leftChild;				//swap - n becomes root while two child are the root and root's left child
+				n.rightChild = aTree.root; 						
+				aTree.root.leftChild = null;
+			} 
 
+			else {
+				n.rightChild = aTree.root.rightChild;				//swap - n becomes root while two child are the root and root's left child
+				n.leftChild = aTree.root; 						
+				aTree.root.rightChild = null;
 			}
+
+			aTree.root = n; //the added node becomes the child
+			sizeOfTree++; //size of queue gets incremented
 		}
 
 	}
-	
+
 	public void remove(int value, Node node){
 		//if the value to remove is smaller than the value of the current node
 		if(value < node.getNumberOfOccurence()){
 			if (node.getLeftChild() != null)
 				remove(value,node.getLeftChild()); //recursive method looking at the next left child
-		
+
 			if(node.getLeftChild() == null)
 				node.g
 		}
-		
+
 	}
 
-	
+
 	public void zig(Node n){
 		GeneralTree aTree = new GeneralTree();
 		Node n2, n3, n4, n5; //Nodes of tree
-		
+
 		if(root == n.getLeftChild()) // if node is left child of parent roo
 			n = aTree.root;
-			
-			
+
+
 	}
 
 	public void zigzag(Node n){
@@ -143,7 +154,7 @@ public class ATree extends GeneralTree{
 
 	}
 
-	
+
 	public void zigzig(){
 
 	}
@@ -166,12 +177,12 @@ public class ATree extends GeneralTree{
 		while (n.parent == null){ //while it is the root n.root != null
 			Node parent = n.getParent(); //n has a parent
 			if(root.getLeftChild() == n || root.getRightChild() == n){ //performs a zig
-				
+
 			}
 		}
 	}
-	
-	
+
+
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
