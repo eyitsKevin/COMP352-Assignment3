@@ -2,19 +2,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
-import com.sun.crypto.provider.AESCipher.General;
-
-import GeneralTree.Node;
-
+//Implemeneting a SPLAYTREE
 
 public class ATree extends GeneralTree{
-
+	static GeneralTree aTree = new GeneralTree();
 	private int removeCount = 0; //getting the total number of remove operations
 	private int addCount = 0; //getting the total number of add operations
 	private int findCount = 0; // getting the total number of find operations
 	private int splayCount = 0; //getting the total number of parent change
-	private int comparisonCount = 0; //getting the total number of comparison
+	private static int comparisonCount = 0; //getting the total number of comparison
 	private static int sizeOfTree = 0; //gets updated if add/remove functions are called
 
 	/*
@@ -26,23 +22,55 @@ public class ATree extends GeneralTree{
 	/////////////////////////////// GETTERS AND SETTERS /////////////////////////
 
 	public Node getParent(){
-		getParent();
+		return getParent();
 	}
 
 	public Node getGP(){
-		getGP();
+		return getGP();
+	}
+	
+	public int getComparisonCount(){
+		return comparisonCount;
+	}
+	
+	public int getRemoveCount(){
+		return removeCount;
+	}
+	
+	public int getAddCount(){
+		return addCount;
+	}
+	
+	public int getFindCount(){
+		return findCount;
+	}
+	
+	public int getSize(){
+		return sizeOfTree;
 	}
 
-	public void setLeftChild(Node n){
-		Node leftChild = n;
-		if(n != null)
-			leftChild.parent = this;
+	// right rotate
+	private Node rotateWithRC(Node n) {
+		Node toRotate = n.getLeftChild();
+		n.leftChild = toRotate.getRightChild();
+		toRotate.rightChild = n;
 
+		return toRotate; //returns 
 	}
+
+	// left rotate
+	private Node rotateWithLC(Node n) {
+		Node toRotate = n.getRightChild();
+		n.rightChild = toRotate.getLeftChild();
+		toRotate.leftChild = n;
+
+		return toRotate; //returns 
+	}
+
+
 
 	///////////////////////////////////////////////////////////////////////////
 
-	//Implemeneting a SPLAYTREE
 
 
 
@@ -85,7 +113,7 @@ public class ATree extends GeneralTree{
 	//A single rotation is performed only if S is a child of the root node. 
 	//
 	public static Node transformIntoNode(int valueOfNode){
-		GeneralTree aTree = new GeneralTree();
+
 		GeneralTree.Node aNode = aTree.new Node(valueOfNode);
 		return aNode;	 
 	}
@@ -95,23 +123,25 @@ public class ATree extends GeneralTree{
 	public static void insert(Node n){
 
 		//Checking if the tree is empty
-		GeneralTree aTree = new GeneralTree();
+		//GeneralTree aTree = new GeneralTree();
 		if(aTree.root == null){ //if empty create a new node and assign it as a root
-			aTree.root = new Node(n.numberOfOccurence) ; 
+			aTree.root = aTree.new Node(n.getNumberOfOccurence()) ; 
 			return;
 		}
 		else{ //there's no duplicate operations
-			n = new Node(n.getNumberOfOccurence());
+			n = aTree.new Node(n.getNumberOfOccurence());
 			if( n.getNumberOfOccurence() < aTree.root.getNumberOfOccurence()){ //if value youre trying to add is smaller than the root
 				n.leftChild = aTree.root.leftChild;				//swap - n becomes root while two child are the root and root's left child
 				n.rightChild = aTree.root; 						
 				aTree.root.leftChild = null;
+				comparisonCount++;
 			} 
 
 			else {
 				n.rightChild = aTree.root.rightChild;				//swap - n becomes root while two child are the root and root's left child
 				n.leftChild = aTree.root; 						
 				aTree.root.rightChild = null;
+				comparisonCount++;
 			}
 
 			aTree.root = n; //the added node becomes the child
@@ -120,15 +150,31 @@ public class ATree extends GeneralTree{
 
 	}
 
-	public void remove(int value, Node node){
-		//if the value to remove is smaller than the value of the current node
-		if(value < node.getNumberOfOccurence()){
-			if (node.getLeftChild() != null)
-				remove(value,node.getLeftChild()); //recursive method looking at the next left child
+	//deleting a node just like in a normal BST
+	public static void remove(Node node, int weight){
+		//Checking if the tree is empty
+		//GeneralTree aTree = new GeneralTree();
+		if(aTree.root == null)
+			return; //cannot remove an empty tree
 
-			if(node.getLeftChild() == null)
-				node.g
-		}
+		if(node == null)
+			return;
+
+		if(node.getNumberOfOccurence() == weight) 
+
+
+			//if the value to remove is smaller than the value of the current node
+			if(weight < node.getNumberOfOccurence()){
+				if (node.getLeftChild() != null)
+					remove(node.getLeftChild(),weight); //recursive method looking at the next left child
+
+				if(node.getLeftChild() == null)
+					node.g
+			}
+
+		if(weight > node.getNumberOfOccurence())
+			if (node.getRightChild() != null)
+				remove(node.getRightChild(),weight); //recursive method looking at the next left child
 
 	}
 
@@ -143,14 +189,8 @@ public class ATree extends GeneralTree{
 
 	}
 
-	public void zigzag(Node n){
-		if (n == n.leftChild) {
-			rotateRight(node);
-			rotateLeft(node); 
-		} else {
-			rotateLeft(node);
-			rotateRight(node); 
-		}
+	public void zigzag(Node n1, Node n2){
+		if()
 
 	}
 
@@ -159,21 +199,9 @@ public class ATree extends GeneralTree{
 
 	}
 	
-	public void run(String n){
-		char command =  n.charAt(0); //if a123 returns a
-		String number = n.substring(1); //after the substring
-		int value = Integer.parseInt(number);
-		
-		switch(command){
-		case 'a' = insert();
-				
-		}
-		
-	}
-
-
 	//Splay will bring the a node to the root by either performing a zig-zag or zig-zig - or zig
-	public void splay(Node n){
+	public Node splay(Node n){
+		
 		while (n.parent == null){ //while it is the root n.root != null
 			Node parent = n.getParent(); //n has a parent
 			if(root.getLeftChild() == n || root.getRightChild() == n){ //performs a zig
@@ -181,6 +209,36 @@ public class ATree extends GeneralTree{
 			}
 		}
 	}
+
+	public void run(String command){
+		char character =  command.charAt(0); //if a123 returns a
+		String number = command.substring(1); //after the substring
+		int value = Integer.parseInt(number);
+		Node n = transformIntoNode(value);
+
+		switch(character){
+		case 'a' : insert(n);
+		addCount++;
+		break;
+		case 'r' : remove(n);
+		removeCount++;
+		break;
+		case 'f' : find(n);
+		removeCount++;
+		break;
+		default : System.out.print("No command were found");
+
+		}
+
+	}
+
+
+	private void find(Node n) {
+		// TODO Auto-generated method stub
+
+	}
+
+
 
 
 

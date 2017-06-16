@@ -1,11 +1,15 @@
-import GeneralTree.Node;
+
 
 public class GeneralTree {
 
-	Node root;
+	protected Node root;
 	
 	public GeneralTree(){
 		root = null;
+	}
+	
+	public GeneralTree(Node root){
+		this.root = root;
 	}
 
 	public class Node{
@@ -108,6 +112,7 @@ public class GeneralTree {
 			return leftChild;
 		}
 		
+	
 	
 
 	}

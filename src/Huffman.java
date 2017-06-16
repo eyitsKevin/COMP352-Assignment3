@@ -3,6 +3,19 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/*
+ * 
+ * Question 4 a)
+ * Encoded string :  she only paints with bold colors; she does not like pastels.
+ * output : 0101110010111101001110011110010010011010101001010111001100101111110011010001001011111100110111101011010100001110010101110010100001111010111001010010111110011100111001101010101111001101011
+ * 
+ * The lenght 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
 
 
 
@@ -294,6 +307,12 @@ public class Huffman extends GeneralTree {
 				if(stringArray[i].equals(nodeArray[j].getElement()))
 					System.out.print(binaryArray[j]);
 			}
+		
+		String n1 = "she only paints with bold colors; she does not like pastels.";
+ String n = "0101110010111101001110011110010010011010101001010111001100101111110011010001001011111100110111101011010100001110010101110010100001111010111001010010111110011100111001101010101111001101011";
+ System.out.println(n.length());
+ System.out.println(n1.length());
+ System.out.println("---");
 
 
 	}
