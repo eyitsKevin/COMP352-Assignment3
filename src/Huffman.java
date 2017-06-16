@@ -7,15 +7,16 @@ import java.util.Scanner;
 
 
 public class Huffman {
-	String lineOfString;
 
+	private String lineOfString;
+	private	static GeneralTree.Node[] nodeArray;
 
 	/*
 	 *  This method tries to open and read the file
 	 */
-	 public void readFile(String fileName){
+	public void openFile(File fileName){
 
-		File inputFile = new File("Jabberwock.txt");
+		File inputFile = new File(fileName.getName());
 		inputFile.setReadOnly(); //To prevent potentially destroying the file
 		Scanner inStream = null;
 
@@ -29,7 +30,7 @@ public class Huffman {
 			System.exit(0);
 		}
 
-		 lineOfString = inStream.nextLine();
+		lineOfString = inStream.nextLine();
 
 		System.out.println("\n==========\tPrinting out the content of \"Jabberwock.txt\"\t==========\n");
 
@@ -39,71 +40,76 @@ public class Huffman {
 
 		inStream.close();
 	}
-	 
-	 public static void getCharArray(String lineOfString){
-	 
-		 System.out.println("Converting the line of string into a character array...");
-		 char[] notUniqueArray = lineOfString.toCharArray();
-		 
-		 System.out.println("Converting the character array into a unique character of arrays \n");
-		 String initial = ""; //Creating a string of unique char
-		 for(int i = 0 ; i< notUniqueArray.length ; i++){
-			 if(initial.indexOf(notUniqueArray[i]) == -1) //checking if the char is already added
-				 initial += notUniqueArray[i];
-		 }
-		 
-		 char[] uniqueCharArray = initial.toCharArray();
-		 
-			printArray(uniqueCharArray);
 
-			System.out.println("\n\nCounting the number of occurences in original char array... \n");
-			//Creating an array of occurrences and initializing it with 0
-			int[] charOccurence = new int [uniqueCharArray.length];
-			for(int i = 0; i< charOccurence.length ; i++)
-				charOccurence[i] = 0;  
+	public static String[] getCharArray(String lineOfString){
 
-			for(int i = 0 ; i < uniqueCharArray.length ; i++){
-				char current = uniqueCharArray[i];
-				for(int j = 0 ; j< notUniqueArray.length ; j++){
-					if(current == notUniqueArray[j])
-						charOccurence[i]++; //since same size
-					else{
-						//do nothing
-					}
+		System.out.println("Converting the line of string into a character array...");
+		char[] notUniqueArray = lineOfString.toCharArray();
+
+		System.out.println("Converting the character array into a unique character of arrays \n");
+		String initial = ""; //Creating a string of unique char
+		for(int i = 0 ; i< notUniqueArray.length ; i++){
+			if(initial.indexOf(notUniqueArray[i]) == -1) //checking if the char is already added
+				initial += notUniqueArray[i];
+		}
+
+		char[] uniqueCharArray = initial.toCharArray();
+
+		printArray(uniqueCharArray);
+
+		System.out.println("\n\nCounting the number of occurences in original char array... \n");
+		//Creating an array of occurrences and initializing it with 0
+		int[] charOccurence = new int [uniqueCharArray.length];
+		for(int i = 0; i< charOccurence.length ; i++)
+			charOccurence[i] = 0;  
+
+		for(int i = 0 ; i < uniqueCharArray.length ; i++){
+			char current = uniqueCharArray[i];
+			for(int j = 0 ; j< notUniqueArray.length ; j++){
+				if(current == notUniqueArray[j])
+					charOccurence[i]++; //since same size
+				else{
+					//do nothing
 				}
 			}
+		}
 
-			for(int i = 1 ; i <= charOccurence.length ;i++){
-				System.out.print("[" + uniqueCharArray[i-1] + "] occurs " + charOccurence[i-1] + " time(s) \t");
-				if(i % 5 == 0)
-					System.out.println();
-			}
+		for(int i = 1 ; i <= charOccurence.length ;i++){
+			System.out.print("[" + uniqueCharArray[i-1] + "] occurs " + charOccurence[i-1] + " time(s) \t");
+			if(i % 5 == 0)
+				System.out.println();
+		}
 
-			System.out.println("\n\nSorting the array in descending order...\n");
-			TwoinputsInsertionSort(charOccurence, uniqueCharArray);
-			for(int i = 1 ; i <= charOccurence.length ;i++){
-				System.out.print("[" + uniqueCharArray[i-1] + "] occurs " + charOccurence[i-1] + " time(s) \t");
-				if(i % 5 == 0)
-					System.out.println();
-			}
-			
+		System.out.println("\n\nSorting the array in descending order...\n");
+		TwoinputsInsertionSort(charOccurence, uniqueCharArray);
+		for(int i = 1 ; i <= charOccurence.length ;i++){
+			System.out.print("[" + uniqueCharArray[i-1] + "] occurs " + charOccurence[i-1] + " time(s) \t");
+			if(i % 5 == 0)
+				System.out.println();
+		}
 
-		
-			GeneralTree.Node[] nodeArray = createHuffmanTree(uniqueCharArray, charOccurence);
-//			String[] binaryArray = binaryCodeArray(nodeArray, uniqueCharArray);
-			System.out.println("\t          -------------------------------------------------------");
-			System.out.printf("%28s %11s %11s %17s","SYMBOLS", "FREQUENCY", "ASCII" ,"BINARY CODE");
-			System.out.println();
-			System.out.println("\t          -------------------------------------------------------");
-			
-			for(int i = 0 ; i < nodeArray.length ; i++){
+
+		String test="";
+		String binaryArray[] = new String[34];
+
+		nodeArray = createHuffmanTree(uniqueCharArray, charOccurence);
+		//			String[] binaryArray = binaryCodeArray(nodeArray, uniqueCharArray);
+		System.out.println("\t          -------------------------------------------------------");
+		System.out.printf("%28s %11s %11s %17s","SYMBOLS", "FREQUENCY", "ASCII" ,"BINARY CODE");
+		System.out.println();
+		System.out.println("\t          -------------------------------------------------------");
+
+		for(int i = 0 ; i < nodeArray.length ; i++){
 			System.out.printf("%28s %11s %11s", uniqueCharArray[i], charOccurence[i] , + (int) uniqueCharArray[i]);
 			System.out.print("\t   ");
-				generateBinaryCode(nodeArray[nodeArray.length-1], Character.toString(uniqueCharArray[i]));
-				System.out.println();
-			}
-	 }
-	
+			//	generateBinaryCode(nodeArray[nodeArray.length-1], Character.toString(uniqueCharArray[i]));
+			binaryArray[i] = generateBinaryCode(nodeArray[nodeArray.length-1], Character.toString(uniqueCharArray[i]), test  );
+
+			System.out.println(binaryArray[i]);
+		}
+		return binaryArray;
+	}
+
 
 
 	static void printArray(char[] array){	
@@ -162,23 +168,23 @@ public class Huffman {
 			iterator++;
 		}
 
-		//		GeneralTree.Node root = nodeArray[nodeArray.length-1];
-		//		System.out.println(root);
-		//		System.out.println(root.getLeftChild());
-		//		System.out.println(root.getRightChild());
-		//		System.out.println(root.getLeftChild().getLeftChild()); //193
-		//		System.out.println(root.getLeftChild().getRightChild());
-		//		System.out.println(root.getRightChild().getLeftChild());
-		//		System.out.println(root.getRightChild().getRightChild());
-		//		System.out.println();
-		//		System.out.println(root.getLeftChild().getRightChild().getLeftChild());
-		//		System.out.println(root.getLeftChild().getRightChild().getRightChild());
-		//		System.out.println(root.getLeftChild().getRightChild().getLeftChild().getLeftChild());
-		//		System.out.println(root.getLeftChild().getRightChild().getLeftChild().getRightChild());
-		//		System.out.println(root.getLeftChild().getRightChild().getLeftChild().getLeftChild().getLeftChild());
-		//		System.out.println(root.getLeftChild().getRightChild().getLeftChild().getLeftChild().getRightChild());
-		//		System.out.println(root.getLeftChild().getRightChild().getLeftChild().getRightChild());
-		//		System.out.println(root.getLeftChild().getRightChild().getRightChild());
+		//				GeneralTree.Node root = nodeArray[nodeArray.length-1];
+		//				System.out.println(root);
+		//				System.out.println(root.getLeftChild());
+		//				System.out.println(root.getRightChild());
+		//				System.out.println(root.getLeftChild().getLeftChild()); //193
+		//				System.out.println(root.getLeftChild().getRightChild());
+		//				System.out.println(root.getRightChild().getLeftChild());
+		//				System.out.println(root.getRightChild().getRightChild());
+		//				System.out.println();
+		//				System.out.println(root.getLeftChild().getRightChild().getLeftChild());
+		//				System.out.println(root.getLeftChild().getRightChild().getRightChild());
+		//				System.out.println(root.getLeftChild().getRightChild().getLeftChild().getLeftChild());
+		//				System.out.println(root.getLeftChild().getRightChild().getLeftChild().getRightChild());
+		//				System.out.println(root.getLeftChild().getRightChild().getLeftChild().getLeftChild().getLeftChild());
+		//				System.out.println(root.getLeftChild().getRightChild().getLeftChild().getLeftChild().getRightChild());
+		//				System.out.println(root.getLeftChild().getRightChild().getLeftChild().getRightChild());
+		//				System.out.println(root.getLeftChild().getRightChild().getRightChild());
 
 		return nodeArray;
 
@@ -188,38 +194,67 @@ public class Huffman {
 
 
 
-	 
-	public  static void generateBinaryCode(GeneralTree.Node root, String find){
 
-		   //CONCERNING THE LEFT SUCE
-				if(root.getLeftChild().getElement().contains(find)){
-					if(root.getLeftChild().isParent() & root.getLeftChild().getElement().contains(find)){
-						System.out.print(0);
-						root = root.getLeftChild();
-						generateBinaryCode(root, find);
-					}
-					else
-						System.out.print(0);
-				
-				}
-					
-				//CONCERNING THE RIGHT SIDE
-				if(root.getRightChild().getElement().contains(find)){
-					if(root.getRightChild().isParent() & root.getRightChild().getElement().contains(find)){
-						System.out.print(1);
-						root = root.getRightChild();
-						generateBinaryCode(root, find);
-					}
-					else 
-						System.out.print(1);
-				
-				}
-}
+	//	public  static void generateBinaryCode(GeneralTree.Node root, String find){
+	//
+	//			if(root == null)
+	//				return;
+	//			
+	//			//else if(root.isLeaf() == null)
+	//				return;
+	//		
+	//		   //CONCERNING THE LEFT SUCE
+	//				if(root.getLeftChild().getElement().contains(find)){
+	//					if(root.getLeftChild().isParent() & root.getLeftChild().getElement().contains(find)){
+	//						System.out.print(0);
+	//						root = root.getLeftChild();
+	//					}
+	//					else
+	//						System.out.print(0);
+	//				
+	//				}
+	//					
+	//			//CONCERNING THE RIGHT SIDE
+	//				if(root.getRightChild().getElement().contains(find)){
+	//					if(root.getRightChild().isParent() & root.getRightChild().getElement().contains(find)){
+	//						System.out.print(1);
+	//						root = root.getRightChild();
+	//					}
+	//					else 
+	//						System.out.print(1);
+	//				
+	//					generateBinaryCode(root, find);
+	//
+	//				}
+	//}
 
+	public static String generateBinaryCode(GeneralTree.Node root, String character, String returnedString){
+		String left = "";
+		String right = "";
 
+		if(root == null)
+			return null;
 
+		else if(root.getElement().equals(character)){ //since we use strings and passe it
+			return returnedString;
+		}
+		else{
+			if(root.isLeaf())
+				return null;
 
+			if(root.getLeftChild() != null)
+				left = generateBinaryCode(root.getLeftChild(),character, returnedString+"0");
 
+			if(root.getRightChild() != null)
+				right = generateBinaryCode(root.getRightChild(),character, returnedString+"1");
+
+			if (left != null)
+				return left;
+
+			else return right;
+
+		}
+	}
 
 
 	static public  String[] charToString(char[] character){
@@ -242,11 +277,27 @@ public class Huffman {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		//String text = args[0];
 		Huffman m = new Huffman();
-		m.openFile();
+		File fileName = new File("Jabberwock.txt");
+		m.openFile(fileName);
 		getCharArray(m.lineOfString);
 
-		args[0].toCharArray();
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Please enter your string: ");
+		String a = sc.nextLine();
+
+		char[] charArray = a.toCharArray();
+		String[] binaryArray = getCharArray(m.lineOfString);
+		String[] stringArray = charToString(charArray);
+
+
+		System.out.print("Converting \"" + a + "\" into binary : ");
+		for(int i = 0 ; i < stringArray.length ; i++)
+			for(int j = 0 ; j < nodeArray.length ; j++){
+				if(stringArray[i].equals(nodeArray[j].getElement()))
+					System.out.print(binaryArray[j]);
+			}
 
 
 	}

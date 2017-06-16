@@ -3,6 +3,10 @@
 public class GeneralTree {
 
 	Node root;
+	
+	public GeneralTree(){
+		root = null;
+	}
 
 	public class Node{
 
@@ -15,6 +19,14 @@ public class GeneralTree {
 		public Node(){
 			this.element = "";
 			this.numberOfOccurence = 0;
+			this.leftChild = null;
+			this.rightChild = null;
+		}
+		
+		//For the ATree.java
+		public Node(int numberOfOccurence){
+			this.element = "";
+			this.numberOfOccurence = numberOfOccurence;
 			this.leftChild = null;
 			this.rightChild = null;
 		}
@@ -57,6 +69,8 @@ public class GeneralTree {
 
 
 		public String toString(){
+			if(this.element == "")
+				return "the weight of this node is " + numberOfOccurence;
 
 			return "the node {" + this.element + "} has a frequency of " + numberOfOccurence; 
 
@@ -82,6 +96,8 @@ public class GeneralTree {
 		public Node getLeftChild(){
 			return leftChild;
 		}
+		
+	
 
 
 	}
@@ -150,36 +166,43 @@ public class GeneralTree {
 
 	public  static void generateBinaryCode(GeneralTree.Node root, String find){
 
-		
-		   //CONCERNING THE LEFT SUCE
-			if(root.getLeftChild().getElement().contains(find)){
-				if(root.getLeftChild().isParent() & root.getLeftChild().getElement().contains(find)){
-					System.out.print(0);
-					root = root.getLeftChild();
-					generateBinaryCode(root, find);
-			
-				}
-				else
-					System.out.print(0);
-			
+
+		//CONCERNING THE LEFT SUCE
+		if(root.getLeftChild().getElement().contains(find)){
+			if(root.getLeftChild().isParent() & root.getLeftChild().getElement().contains(find)){
+				System.out.print(0);
+				root = root.getLeftChild();
+				generateBinaryCode(root, find);
+
 			}
-			
-		
-				
-			//CONCERNING THE RIGHT SIDE
-			if(root.getRightChild().getElement().contains(find)){
-				if(root.getRightChild().isParent() & root.getRightChild().getElement().contains(find)){
-					System.out.print(1);
-					root = root.getRightChild();
-					generateBinaryCode(root, find);
-				}
-				else 
-					System.out.print(1);
+			else
+				System.out.print(0);
+
+		}
+
+
+
+		//CONCERNING THE RIGHT SIDE
+		if(root.getRightChild().getElement().contains(find)){
+			if(root.getRightChild().isParent() & root.getRightChild().getElement().contains(find)){
+				System.out.print(1);
+				root = root.getRightChild();
+				generateBinaryCode(root, find);
 			}
-			
-			
+			else 
+				System.out.print(1);
+		}
+
+
 	}
 
+	public Node getRoot(){
+		return root;
+	}
+
+	public void setRoot(Node n){
+		this.root = n;
+	}
 
 
 	/*
@@ -233,15 +256,15 @@ public class GeneralTree {
 		inOrderTraverse (node[node.length-1] );
 
 
-				for(int i = 0 ; i < node.length;i++){
-		generateBinaryCode(node[node.length-1], Character.toString(element[i]));
-		System.out.println();
-				}
-				
-				System.out.println(node[2].isParent() + " " + node[0].toString());
+		for(int i = 0 ; i < node.length;i++){
+			generateBinaryCode(node[node.length-1], Character.toString(element[i]));
+			System.out.println();
+		}
 
-				String wuush = "ab_c";
-				System.out.println(wuush.contains("c"));
+		System.out.println(node[2].isParent() + " " + node[0].toString());
+
+		String wuush = "ab_c";
+		System.out.println(wuush.contains("c"));
 
 		System.out.println();
 		System.out.println("\t         "+node[node.length-1]);
