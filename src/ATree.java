@@ -104,6 +104,7 @@ public class ATree extends GeneralTree{
 		char command =  n.charAt(0); //if a123 returns a
 		String number = n.substring(1); //after the substring
 		int value = Integer.parseInt(number);
+		
 		switch(command){
 		case 'a' = insert();
 				
