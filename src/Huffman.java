@@ -3,10 +3,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-
-
-
-
 public class Huffman extends GeneralTree {
 
 	private String lineOfString;
@@ -239,11 +235,14 @@ public class Huffman extends GeneralTree {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		//String text = args[0];
+		String text = args[0];
 		Huffman m = new Huffman();
-		File fileName = new File("Jabberwock.txt");
+		
+		File fileName = new File(text);
 		m.openFile(fileName);
+	
 		getBinaryArray(m.lineOfString);
+		
 
 		System.out.println();
 

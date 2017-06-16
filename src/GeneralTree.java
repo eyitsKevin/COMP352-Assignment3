@@ -158,7 +158,7 @@ public class GeneralTree {
 		if (root.leftChild != null){
 			inOrderTraverse (root.leftChild);
 		}
-		System.out.println(root.toString());
+		//System.out.println(root.toString());
 		if (root.rightChild != null){
 			inOrderTraverse (root.rightChild);
 		}
@@ -175,40 +175,6 @@ public class GeneralTree {
 				System.out.println(node[i].toString());
 			}
 		}
-	}
-
-
-
-	public  static void generateBinaryCode(GeneralTree.Node root, String find){
-
-
-		//CONCERNING THE LEFT SUCE
-		if(root.getLeftChild().getElement().contains(find)){
-			if(root.getLeftChild().isParent() & root.getLeftChild().getElement().contains(find)){
-				System.out.print(0);
-				root = root.getLeftChild();
-				generateBinaryCode(root, find);
-
-			}
-			else
-				System.out.print(0);
-
-		}
-
-
-
-		//CONCERNING THE RIGHT SIDE
-		if(root.getRightChild().getElement().contains(find)){
-			if(root.getRightChild().isParent() & root.getRightChild().getElement().contains(find)){
-				System.out.print(1);
-				root = root.getRightChild();
-				generateBinaryCode(root, find);
-			}
-			else 
-				System.out.print(1);
-		}
-
-
 	}
 
 	public Node getRoot(){
@@ -263,35 +229,35 @@ public class GeneralTree {
 		// TODO Auto-generated method stub
 
 
-		char[] element = {'a','b','c','d'};
-		int[] freq = {1,2,3,4};
-
-		Node[] node = Huffman.createHuffmanTree(element, freq);
-
-		inOrderTraverse (node[node.length-1] );
-
-
-		for(int i = 0 ; i < node.length;i++){
-			generateBinaryCode(node[node.length-1], Character.toString(element[i]));
-			System.out.println();
-		}
-
-		System.out.println(node[2].isParent() + " " + node[0].toString());
-
-		String wuush = "ab_c";
-		System.out.println(wuush.contains("c"));
-
-		System.out.println();
-		System.out.println("\t         "+node[node.length-1]);
-		System.out.print("\t"   + node[node.length-1].getLeftChild());
-		System.out.println("\t "   + node[node.length-1].getRightChild());
-		System.out.print("\t"   + node[node.length-1].getLeftChild().getLeftChild());
-		System.out.print("\t"   + node[node.length-1].getLeftChild().getRightChild());
-		System.out.print("\t"   + node[node.length-1].getRightChild().getLeftChild());
-		System.out.print("\t"   + node[node.length-1].getRightChild().getRightChild());
-		System.out.println();
-		System.out.print("\t"   + node[node.length-1].getRightChild().getLeftChild().getLeftChild());
-		System.out.print("\t"   + node[node.length-1].getRightChild().getLeftChild().getRightChild());
+//		char[] element = {'a','b','c','d'};
+//		int[] freq = {1,2,3,4};
+//
+//		Node[] node = Huffman.createHuffmanTree(element, freq);
+//
+//		inOrderTraverse (node[node.length-1] );
+//
+//
+//		for(int i = 0 ; i < node.length;i++){
+//			generateBinaryCode(node[node.length-1], Character.toString(element[i]));
+//			System.out.println();
+//		}
+//
+//		System.out.println(node[2].isParent() + " " + node[0].toString());
+//
+//		String wuush = "ab_c";
+//		System.out.println(wuush.contains("c"));
+//
+//		System.out.println();
+//		System.out.println("\t         "+node[node.length-1]);
+//		System.out.print("\t"   + node[node.length-1].getLeftChild());
+//		System.out.println("\t "   + node[node.length-1].getRightChild());
+//		System.out.print("\t"   + node[node.length-1].getLeftChild().getLeftChild());
+//		System.out.print("\t"   + node[node.length-1].getLeftChild().getRightChild());
+//		System.out.print("\t"   + node[node.length-1].getRightChild().getLeftChild());
+//		System.out.print("\t"   + node[node.length-1].getRightChild().getRightChild());
+//		System.out.println();
+//		System.out.print("\t"   + node[node.length-1].getRightChild().getLeftChild().getLeftChild());
+//		System.out.print("\t"   + node[node.length-1].getRightChild().getLeftChild().getRightChild());
 
 
 

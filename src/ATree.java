@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 //Implemeneting a SPLAYTREE
 
+import GeneralTree.Node;
+
 public class ATree extends GeneralTree{
 	static GeneralTree aTree = new GeneralTree();
 	private int removeCount = 0; //getting the total number of remove operations
@@ -12,11 +14,6 @@ public class ATree extends GeneralTree{
 	private int splayCount = 0; //getting the total number of parent change
 	private static int comparisonCount = 0; //getting the total number of comparison
 	private static int sizeOfTree = 0; //gets updated if add/remove functions are called
-
-	/*
-	 * FINISHING UP THE NODE CLASS WITH GRANDPARENT AND PARENT POINTERS
-	 */
-
 
 
 	/////////////////////////////// GETTERS AND SETTERS /////////////////////////
@@ -28,25 +25,29 @@ public class ATree extends GeneralTree{
 	public Node getGP(){
 		return getGP();
 	}
-	
+
 	public int getComparisonCount(){
 		return comparisonCount;
 	}
-	
+
 	public int getRemoveCount(){
 		return removeCount;
 	}
-	
+
 	public int getAddCount(){
 		return addCount;
 	}
-	
+
 	public int getFindCount(){
 		return findCount;
 	}
-	
+
 	public int getSize(){
 		return sizeOfTree;
+	}
+
+	public int getSplayCount(){
+		return splayCount;
 	}
 
 	// right rotate
@@ -54,7 +55,7 @@ public class ATree extends GeneralTree{
 		Node toRotate = n.getLeftChild();
 		n.leftChild = toRotate.getRightChild();
 		toRotate.rightChild = n;
-
+		splayCount++;
 		return toRotate; //returns 
 	}
 
@@ -63,18 +64,17 @@ public class ATree extends GeneralTree{
 		Node toRotate = n.getRightChild();
 		n.rightChild = toRotate.getLeftChild();
 		toRotate.leftChild = n;
-
+		splayCount++;
 		return toRotate; //returns 
 	}
 
-
-
 	///////////////////////////////////////////////////////////////////////////
 
+	
 
 
-
-	public static void displayFileContents(File fileIn) {
+	//FILE NEEDS TO BE CLOSED AFTER EACH USED
+	public static void openFile(File fileIn) {
 		Scanner reader = null;
 		try{
 			reader = new Scanner (new FileInputStream (fileIn.getName()));
@@ -84,42 +84,28 @@ public class ATree extends GeneralTree{
 		}
 
 
-		System.out.println("Here are the contents of the file " + fileIn.getName()  + ":");
-		System.out.println("===============================================");
-		int i =1 ;
-		while(reader.hasNext()) {
-			System.out.print(reader.next() + " ");
-			i++;
-			if(i%30 == 0){
-				System.out.println();
-			}
-
-		}
-		reader.close();
+		//		System.out.println("Here are the contents of the file " + fileIn.getName()  + ":");
+		//		System.out.println("===============================================");
+		//		int i =1 ;
+		//		while(reader.hasNext()) {
+		//			System.out.print(reader.next() + " ");
+		//			i++;
+		//			if(i%30 == 0){
+		//				System.out.println();
+		//			}
+		//
+		//		}
+		//	reader.close();
 
 	}
 
-	//	 The first double rotation is called a zigzag rotation. It takes place when either
-	//	 of the following two conditions are met:
-	//		 1. S is the left child of P, and P is the right child of G.
-	//		 2. S is the right child of P, and P is the left child of G.
 
-	//	 
-	//	 The other double rotation is known as a zigzig rotation. A zigzig rotation takes
-	//	 place when either of the following two conditions are met:
-	//	 1. S is the left child of P, which is in turn the left child of G.
-	//	 2. S is the right child of P, which is in turn the right child of G.
-	//	 
-	//A single rotation is performed only if S is a child of the root node. 
-	//
 	public static Node transformIntoNode(int valueOfNode){
 
 		GeneralTree.Node aNode = aTree.new Node(valueOfNode);
 		return aNode;	 
 	}
 
-
-	//if a is picked
 	public static void insert(Node n){
 
 		//Checking if the tree is empty
@@ -137,7 +123,7 @@ public class ATree extends GeneralTree{
 				comparisonCount++;
 			} 
 
-			else {
+			else if(n.getNumberOfOccurence() > aTree.root.getNumberOfOccurence()) {
 				n.rightChild = aTree.root.rightChild;				//swap - n becomes root while two child are the root and root's left child
 				n.leftChild = aTree.root; 						
 				aTree.root.rightChild = null;
@@ -161,6 +147,7 @@ public class ATree extends GeneralTree{
 			return;
 
 		if(node.getNumberOfOccurence() == weight) 
+			node = null;
 
 
 			//if the value to remove is smaller than the value of the current node
@@ -169,7 +156,7 @@ public class ATree extends GeneralTree{
 					remove(node.getLeftChild(),weight); //recursive method looking at the next left child
 
 				if(node.getLeftChild() == null)
-					node.g
+					remove(node.getLeftChild(),weight);
 			}
 
 		if(weight > node.getNumberOfOccurence())
@@ -178,37 +165,6 @@ public class ATree extends GeneralTree{
 
 	}
 
-
-	public void zig(Node n){
-		GeneralTree aTree = new GeneralTree();
-		Node n2, n3, n4, n5; //Nodes of tree
-
-		if(root == n.getLeftChild()) // if node is left child of parent roo
-			n = aTree.root;
-
-
-	}
-
-	public void zigzag(Node n1, Node n2){
-		if()
-
-	}
-
-
-	public void zigzig(){
-
-	}
-	
-	//Splay will bring the a node to the root by either performing a zig-zag or zig-zig - or zig
-	public Node splay(Node n){
-		
-		while (n.parent == null){ //while it is the root n.root != null
-			Node parent = n.getParent(); //n has a parent
-			if(root.getLeftChild() == n || root.getRightChild() == n){ //performs a zig
-
-			}
-		}
-	}
 
 	public void run(String command){
 		char character =  command.charAt(0); //if a123 returns a
@@ -220,33 +176,140 @@ public class ATree extends GeneralTree{
 		case 'a' : insert(n);
 		addCount++;
 		break;
-		case 'r' : remove(n);
-		removeCount++;
-		break;
-		case 'f' : find(n);
-		removeCount++;
+		case 'r' : //remove(aTree.root, n.getNumberOfOccurence());
+			removeCount++;
+			break;
+		case 'f' : find(aTree.root, n.getNumberOfOccurence());
+		findCount++;
 		break;
 		default : System.out.print("No command were found");
+		}
+	}
 
+	//Splay will bring the a node to the root by either performing a zig-zag or zig-zig - or zig
+	public Node splay(Node n){
+		Node rootNode = aTree.root;
+
+		//Creating a temp node
+		Node temp1 = new Node();
+		temp1.leftChild = null;
+		temp1.rightChild = null;
+
+		Node temp2 = new Node();
+		temp2.leftChild = null;
+		temp2.rightChild = null;
+
+		if(root.getLeftChild() == n || root.getRightChild() == n){ //performs a zig operations 
+
+
+			while (true){ 
+
+				//TRAVERSING THE LEFT SIDE OF THE TREE
+				if(n.getNumberOfOccurence() < rootNode.getNumberOfOccurence()){ 
+					if(rootNode.getLeftChild() == null) 
+						break; //break out of the loop - there's nothing to swap
+					if(n.getNumberOfOccurence() < rootNode.getLeftChild().getNumberOfOccurence()){
+						comparisonCount++;
+						rootNode = rotateWithRC(n); //root Node
+					}
+					temp1.leftChild = rootNode;
+					temp1 = rootNode;
+					rootNode = rootNode.leftChild;
+				}
+
+				//TRAVERSING THE RIGHT SIDE OF THE TREE
+				if(n.getNumberOfOccurence() > rootNode.getNumberOfOccurence()){ 
+					if(rootNode.getRightChild() == null) 
+						break; //break out of the loop - there's nothing to swap
+					if(n.getNumberOfOccurence() > rootNode.getRightChild().getNumberOfOccurence()){
+						comparisonCount++;
+						rootNode = rotateWithLC(n); //root Node
+					}
+					temp1.rightChild = rootNode;
+					temp1 = rootNode;
+					rootNode = rootNode.rightChild;
+				}
+			}	
+		}
+		return rootNode;
+	}
+	public int getNumberOfCommand(File fileIn){
+		Scanner reader = null;
+		int count = 0;
+		try{
+			reader = new Scanner (new FileInputStream (fileIn.getName()));
+		}
+		catch (FileNotFoundException e){
+			e.getMessage();
+		}
+
+		while(reader.hasNext()){
+			reader.next();
+			count++;
+		}
+		reader.close();
+		return count;
+	}
+
+	public String[] getCommand(File fileIn){
+		Scanner reader = null;
+		try{
+			reader = new Scanner (new FileInputStream (fileIn.getName()));
+		}
+		catch (FileNotFoundException e){
+			e.getMessage();
+		}
+
+		int size = getNumberOfCommand(fileIn);
+		String[] commands = new String[size];
+
+
+		for(int i = 0 ; i <commands.length ;i++){
+			if(reader.hasNext())
+				commands[i] = reader.next(); //putting the string into the rester
+		}	
+
+		reader.close();
+		return commands;
+	}
+
+
+
+	private static void find(Node root, int value) {
+		if(root == null){
+			return;
+		}
+		if(root.getNumberOfOccurence() == value){
+			//System.out.println("The " + value + " was found in " + root.toString() );
+			return;
+		}
+
+		if (root.leftChild != null){
+			find (root.leftChild, value); //from general tree
+		}
+		//System.out.println(root.toString());
+		if (root.rightChild != null){
+			find (root.rightChild, value); //from general tree
 		}
 
 	}
 
-
-	private void find(Node n) {
-		// TODO Auto-generated method stub
-
-	}
-
-
-
-
-
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Huffman wuush = new Huffman();
+		ATree aTree = new ATree();
 		File fileName = new File("Operations.txt");
-		displayFileContents(fileName);
+		String[] commands = aTree.getCommand(fileName);
+
+		for(int i = 0 ; i < commands.length ; i++)
+			aTree.run(commands[i]);
+
+		System.out.println("The total number of comparison operations is : " + aTree.getComparisonCount());
+		System.out.println("The total number of splay operations is : " + aTree.getSplayCount());
+		System.out.println("The total number of add operations is : " + aTree.getAddCount());
+		System.out.println("The total number of find operations is : " + aTree.getFindCount());
+		System.out.println("The total number of remove operations is : " + aTree.getRemoveCount());
+
 	}
 
 }
