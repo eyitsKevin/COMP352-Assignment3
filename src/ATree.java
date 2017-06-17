@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 //Implemeneting a SPLAYTREE
 
-import GeneralTree.Node;
+
 
 public class ATree extends GeneralTree{
 	static GeneralTree aTree = new GeneralTree();
@@ -154,9 +154,6 @@ public class ATree extends GeneralTree{
 			if(weight < node.getNumberOfOccurence()){
 				if (node.getLeftChild() != null)
 					remove(node.getLeftChild(),weight); //recursive method looking at the next left child
-
-				if(node.getLeftChild() == null)
-					remove(node.getLeftChild(),weight);
 			}
 
 		if(weight > node.getNumberOfOccurence())
@@ -176,7 +173,7 @@ public class ATree extends GeneralTree{
 		case 'a' : insert(n);
 		addCount++;
 		break;
-		case 'r' : //remove(aTree.root, n.getNumberOfOccurence());
+		case 'r' : remove(aTree.root, n.getNumberOfOccurence());
 			removeCount++;
 			break;
 		case 'f' : find(aTree.root, n.getNumberOfOccurence());
@@ -195,9 +192,6 @@ public class ATree extends GeneralTree{
 		temp1.leftChild = null;
 		temp1.rightChild = null;
 
-		Node temp2 = new Node();
-		temp2.leftChild = null;
-		temp2.rightChild = null;
 
 		if(root.getLeftChild() == n || root.getRightChild() == n){ //performs a zig operations 
 
@@ -296,9 +290,10 @@ public class ATree extends GeneralTree{
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		String file = args[0];
 		Huffman wuush = new Huffman();
 		ATree aTree = new ATree();
-		File fileName = new File("Operations.txt");
+		File fileName = new File(file); //put file in 
 		String[] commands = aTree.getCommand(fileName);
 
 		for(int i = 0 ; i < commands.length ; i++)
